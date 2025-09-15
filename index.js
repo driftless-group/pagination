@@ -51,38 +51,38 @@ function paginate(schema, options={}) {
 
       builder.then((documents) => {
         var report = {};
-	
+
         report.documents  = documents;
         report.total      = {count: total, pages: (total / queryOptions.limit)};
-	report.query      = query;
-	report.ts         = new Date();
+        report.query      = query;
+        report.ts         = new Date();
 
 
-	if (opts.query) {
-	  report.ref     = self.modelName;
-	  report.options = queryOptions;
-	}
-	
-	if (opts.cursor) {
-	  report.current       = JSON.parse(JSON.stringify(query));
-	  report.current.count = pagination.count;
-	  report.current.page  = pagination.page;
+        if (opts.query) {
+          report.ref     = self.modelName;
+          report.options = queryOptions;
+        }
 
-	  report.next          = JSON.parse(JSON.stringify(query));
-	  report.next.count    = pagination.count;
-	  report.next.page     = pagination.page + 1;
-	}
-	
-	report = ['sort', 'select'].reduce((report, word) => {
-	  if (queryOptions[word] != undefined) {
-	    report.current[word] = queryOptions[word];
-	    report.next[word]    = queryOptions[word];
-	  }
-	  return report;
-	}, report);
+        if (opts.cursor) {
+          report.current       = JSON.parse(JSON.stringify(query));
+          report.current.count = pagination.count;
+          report.current.page  = pagination.page;
 
-	resolve(report)
-	
+          report.next          = JSON.parse(JSON.stringify(query));
+          report.next.count    = pagination.count;
+          report.next.page     = pagination.page + 1;
+        }
+
+        report = ['sort', 'select'].reduce((report, word) => {
+          if (queryOptions[word] != undefined) {
+            report.current[word] = queryOptions[word];
+            report.next[word]    = queryOptions[word];
+          }
+          return report;
+        }, report);
+
+        resolve(report)
+
       }).catch(reject);
 
 
