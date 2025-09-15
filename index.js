@@ -54,9 +54,9 @@ function paginate(schema, options={}) {
 
         report.documents  = documents;
         report.total      = {count: total, pages: (total / queryOptions.limit)};
-        report.query      = query;
-
+        
         if (opts.query) {
+          report.query      = query;
           report.ref     = self.modelName;
           report.options = queryOptions;
         }
