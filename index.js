@@ -1,23 +1,24 @@
 const path = require('path');
 var mongoose = require('mongoose');
 
+var keywords = ['limit', 'skip', 'select', 'sort'],
+  paginationKeywords = ['page', 'count'];
+
+
 function paginate(schema, options={}) {
   schema.statics.paginate = function(query) {
+
     var queryOptions = {},
-      pagination = {count: 25, page: 1},
-      keywords = ['limit', 'skip', 'select', 'sort'],
-      paginationKeywords = ['page', 'count'];
+      pagination = {count: 25, page: 1};
 
     return new Promise(async(resolve, reject) => {
-
-      pagination = paginationKeywords.reduce(function(pagination, keyword) {
+      pagination = paginationKeywords.reduce(function(pager, keyword) {
         if (query[keyword] != undefined) {
-          pagination[keyword] = query[keyword];
+          pager[keyword] = query[keyword];
           delete query[keyword];
         } 
-        return pagination;
-      }, pagination)
-
+        return pager;
+      }, pagination);
 
       queryOptions = keywords.reduce(function(opts, keyword) {
         if (query[keyword] != undefined) {
@@ -27,11 +28,14 @@ function paginate(schema, options={}) {
         return opts;
       }, queryOptions);
 
+
       queryOptions.limit = pagination.count;
       queryOptions.skip  = (pagination.page - 1) * pagination.count;
 
+
       var total   = await this.countDocuments(query); 
       var builder = this.find(query);
+
 
       builder = keywords.reduce((queryBuilder, word) => {
         if (queryOptions[word] != undefined) {
@@ -39,6 +43,7 @@ function paginate(schema, options={}) {
         }       
         return queryBuilder;
       }, builder)
+
 
       builder.then((documents) => {
         var report = {};
@@ -55,6 +60,7 @@ function paginate(schema, options={}) {
         resolve(report)
 	
       }).catch(reject);
+
 
     })
   }
