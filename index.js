@@ -11,6 +11,10 @@ function paginate(schema, options={}) {
     var queryOptions = {},
       pagination = {count: 25, page: 1};
 
+    if (opts.cursor == undefined) {
+      opts.cursor = true
+    }
+
     return new Promise(async(resolve, reject) => {
       pagination = paginationKeywords.reduce(function(pager, keyword) {
         if (query[keyword] != undefined) {
@@ -50,29 +54,32 @@ function paginate(schema, options={}) {
 	
         report.documents  = documents;
         report.total      = {count: total, pages: (total / queryOptions.limit)};
+	report.query      = query;
+	report.ts         = new Date();
 
-	
-	if (opts.verbose) {
-	  report.ref      = self.modelName;
-	  report.query    = query;
-	  report.options  = queryOptions;
-	} else {
-	  report.query    = query;
+
+	if (opts.query) {
+	  report.ref     = self.modelName;
+	  report.options = queryOptions;
 	}
 	
-	report.ts         = new Date();
-        
-	report.next       = JSON.parse(JSON.stringify(query));
-        report.next.count = pagination.count;
-        report.next.page  = pagination.page + 1;
+	if (opts.cursor) {
+	  report.current       = JSON.parse(JSON.stringify(query));
+	  report.current.count = pagination.count;
+	  report.current.page  = pagination.page;
 
+	  report.next          = JSON.parse(JSON.stringify(query));
+	  report.next.count    = pagination.count;
+	  report.next.page     = pagination.page + 1;
+	}
+	
 	report = ['sort', 'select'].reduce((report, word) => {
 	  if (queryOptions[word] != undefined) {
-	    report.next[word] = queryOptions[word];
+	    report.current[word] = queryOptions[word];
+	    report.next[word]    = queryOptions[word];
 	  }
-          return report;
+	  return report;
 	}, report);
-
 
 	resolve(report)
 	
