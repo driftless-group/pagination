@@ -41,18 +41,18 @@ function paginate(schema, options={}) {
       }, builder)
 
       builder.then((documents) => {
-	var report = {};
+        var report = {};
 	
-	report.documents  = documents;
+        report.documents  = documents;
 	
-	report.total      = {count: total, pages: (total / queryOptions.limit)};
-	report.query      = query;
-        report.ts         = new Date();
-	report.next       = JSON.parse(JSON.stringify(query));
-	report.next.count = pagination.count;
-	report.next.page  = pagination.page + 1;
+        report.total      = {count: total, pages: (total / queryOptions.limit)};
+        report.query      = query;
+	report.ts         = new Date();
+        report.next       = JSON.parse(JSON.stringify(query));
+        report.next.count = pagination.count;
+        report.next.page  = pagination.page + 1;
 	
-	resolve(report)
+        resolve(report)
 	
       }).catch(reject);
 
