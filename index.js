@@ -47,7 +47,7 @@ function paginate(schema, options={}) {
 	
         report.total      = {count: total, pages: (total / queryOptions.limit)};
         report.query      = query;
-	report.ts         = new Date();
+        report.ts         = new Date();
         report.next       = JSON.parse(JSON.stringify(query));
         report.next.count = pagination.count;
         report.next.page  = pagination.page + 1;
