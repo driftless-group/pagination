@@ -1,0 +1,29 @@
+{
+  "name": "pagination",
+  "version": "0.0.1",
+  "description": "",
+  "homepage": "https://github.com/marijuana-mn/pagination#readme",
+  "bugs": {
+    "url": "https://github.com/marijuana-mn/pagination/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marijuana-mn/pagination.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Scott Ballantyne",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -w"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.0.0",
+    "mocha": "^11.7.2",
+    "models": "github:marijuana-mn/models",
+    "qa": "github:marijuana-mn/qa"
+  },
+  "dependencies": {
+    "mongoose": "^8.18.1"
+  }
+}
