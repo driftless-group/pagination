@@ -55,8 +55,6 @@ function paginate(schema, options={}) {
         report.documents  = documents;
         report.total      = {count: total, pages: (total / queryOptions.limit)};
         report.query      = query;
-        report.ts         = new Date();
-
 
         if (opts.query) {
           report.ref     = self.modelName;
@@ -81,11 +79,10 @@ function paginate(schema, options={}) {
           return report;
         }, report);
 
+        report.ts         = new Date();
+
         resolve(report)
-
       }).catch(reject);
-
-
     })
   }
 }

@@ -34,7 +34,7 @@ describe('paginate', function() {
     var query = false, cursor = true;
     Person.paginate({count: 10, sort: 'username'}, {query}).then((response) => {
 
-      console.log(response);
+      //console.log(response);
       assert.equal(response.documents.length, 10);
       assert.equal(response.total.count, 100);
       assert.equal(response.total.pages, 10);
