@@ -31,15 +31,15 @@ describe('paginate', function() {
   })
 
   it('should have something to paginate', function(done) {
-    Person.paginate({count: 10}).then((response) => {
+    Person.paginate({count: 10, sort: 'username'}, {verbose: true}).then((response) => {
 
-      //console.log(response);
+      console.log(response);
       assert.equal(response.documents.length, 10);
       assert.equal(response.total.count, 100);
       assert.equal(response.total.pages, 10);
       assert.equal(response.next.count, 10);
       assert.equal(response.next.page, 2);
-
+      assert.equal(response.next.sort, 'username')
 
       done();
     }).catch(console.log)

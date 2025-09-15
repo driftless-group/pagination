@@ -6,8 +6,8 @@ var keywords = ['limit', 'skip', 'select', 'sort'],
 
 
 function paginate(schema, options={}) {
-  schema.statics.paginate = function(query) {
-
+  schema.statics.paginate = function(query, opts={}) {
+    var self = this;
     var queryOptions = {},
       pagination = {count: 25, page: 1};
 
@@ -49,15 +49,32 @@ function paginate(schema, options={}) {
         var report = {};
 	
         report.documents  = documents;
-	
         report.total      = {count: total, pages: (total / queryOptions.limit)};
-        report.query      = query;
-        report.ts         = new Date();
-        report.next       = JSON.parse(JSON.stringify(query));
+
+	
+	if (opts.verbose) {
+	  report.ref      = self.modelName;
+	  report.query    = query;
+	  report.options  = queryOptions;
+	} else {
+	  report.query    = query;
+	}
+	
+	report.ts         = new Date();
+        
+	report.next       = JSON.parse(JSON.stringify(query));
         report.next.count = pagination.count;
         report.next.page  = pagination.page + 1;
-	
-        resolve(report)
+
+	report = ['sort', 'select'].reduce((report, word) => {
+	  if (queryOptions[word] != undefined) {
+	    report.next[word] = queryOptions[word];
+	  }
+          return report;
+	}, report);
+
+
+	resolve(report)
 	
       }).catch(reject);
 
