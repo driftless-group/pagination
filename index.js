@@ -54,22 +54,20 @@ function paginate(schema, options={}) {
 
         report.documents  = documents;
         report.total      = {count: total, pages: (total / queryOptions.limit)};
+        report.query      = query;
         
         if (opts.query) {
-          report.query      = query;
           report.ref     = self.modelName;
           report.options = queryOptions;
         }
 
-        if (opts.cursor) {
-          report.current       = JSON.parse(JSON.stringify(query));
-          report.current.count = pagination.count;
-          report.current.page  = pagination.page;
+        report.current       = JSON.parse(JSON.stringify(query));
+        report.current.count = pagination.count;
+        report.current.page  = pagination.page;
 
-          report.next          = JSON.parse(JSON.stringify(query));
-          report.next.count    = pagination.count;
-          report.next.page     = pagination.page + 1;
-        }
+        report.next          = JSON.parse(JSON.stringify(query));
+        report.next.count    = pagination.count;
+        report.next.page     = pagination.page + 1;
 
         report = ['sort', 'select'].reduce((report, word) => {
           if (queryOptions[word] != undefined) {
