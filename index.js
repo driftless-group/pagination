@@ -53,7 +53,7 @@ function paginate(schema, options={}) {
         var report = {};
 
         report.documents  = documents;
-        report.total      = {count: total, pages: (total / queryOptions.limit)};
+        report.total      = {count: total, pages: Math.ceil(total / queryOptions.limit)};
         report.query      = query;
         
         if (opts.query) {
