@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 var keywords = ['limit', 'skip', 'select', 'sort'],
   paginationKeywords = ['page', 'count'],
-  nonPageQueryWords = ['sort', 'select'];
+   nonPageQueryWords = ['sort', 'select'];
 
 function paginate(schema, options={}) {
   schema.statics.paginate = function(query, opts={}) {
