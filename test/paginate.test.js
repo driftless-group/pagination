@@ -53,7 +53,7 @@ describe('paginate', function() {
   it('page math, should round up', function(done) {
     Place.paginate({sort: 'name'}).then((response) => {
       
-      //console.log(response);
+      console.log(response);
       
       assert.equal(response.documents.length, 25);
       assert.equal(response.total.count, 1026);

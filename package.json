@@ -2,15 +2,15 @@
   "name": "pagination",
   "version": "0.0.1",
   "description": "",
-  "homepage": "https://github.com/marijuana-mn/pagination#readme",
+  "homepage": "https://github.com/driftless-group/pagination#readme",
   "bugs": {
-    "url": "https://github.com/marijuana-mn/pagination/issues"
+    "url": "https://github.com/driftless-group/pagination/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marijuana-mn/pagination.git"
+    "url": "git+https://github.com/driftless-group/pagination.git"
   },
-  "license": "UNLICENSED",
+  "license": "GPL-3.0",
   "author": "Scott Ballantyne",
   "type": "commonjs",
   "main": "index.js",
@@ -20,8 +20,8 @@
   "devDependencies": {
     "@faker-js/faker": "^10.0.0",
     "mocha": "^11.7.2",
-    "models": "github:marijuana-mn/models",
-    "qa": "github:marijuana-mn/qa"
+    "@drifted/models": "*",
+    "@drifted/qa": "*"
   },
   "dependencies": {
     "mongoose": "^8.18.1"

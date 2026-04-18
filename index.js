@@ -2,14 +2,14 @@ const path = require('path');
 var mongoose = require('mongoose');
 
 var keywords = ['limit', 'skip', 'select', 'sort'],
-  paginationKeywords = ['page', 'count'];
-
+  paginationKeywords = ['page', 'count'],
+  nonPageQueryWords = ['sort', 'select'];
 
 function paginate(schema, options={}) {
   schema.statics.paginate = function(query, opts={}) {
     var self = this;
     var queryOptions = {},
-      pagination = {count: 25, page: 1};
+          pagination = {count: 25, page: 1};
 
     if (opts.cursor == undefined) {
       opts.cursor = true
@@ -69,7 +69,12 @@ function paginate(schema, options={}) {
         report.next.count    = pagination.count;
         report.next.page     = pagination.page + 1;
 
-        report = ['sort', 'select'].reduce((report, word) => {
+        // adding these words back into the query because this is 
+        // supposed to be mimicing the same api that is used on the web.
+        // adding back in sort and select which aren't passed into the 
+        // main query argument in mongoose.
+
+        report = nonPageQueryWords.reduce((report, word) => {
           if (queryOptions[word] != undefined) {
             report.current[word] = queryOptions[word];
             report.next[word]    = queryOptions[word];
@@ -77,7 +82,7 @@ function paginate(schema, options={}) {
           return report;
         }, report);
 
-        report.ts         = new Date();
+        report.ts = new Date();
 
         resolve(report)
       }).catch(reject);
@@ -85,5 +90,9 @@ function paginate(schema, options={}) {
   }
 }
 
+
+
 module.exports = paginate;
+
+
 
