@@ -5,7 +5,5 @@
 ```
 
 ```javascript
-
   schema.plugin(require('@drifted/pagination'))
-
 ```
