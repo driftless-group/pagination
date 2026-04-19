@@ -33,7 +33,6 @@ const schema = new mongoose.Schema({
 schema.plugin(pagination);
 
 module.exports.PersonSchema = schema;
-
 mongoose.models.Person || mongoose.model('Person', schema);
 module.exports.Person = mongoose.models.Person;
 
