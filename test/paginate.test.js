@@ -15,6 +15,9 @@ const { Place }  = require(path.join(__dirname, 'place'));
 
 require('@drifted/db')
 
+console.log('env', process.env.NODE_ENV);
+console.log('mongo', process.env.MONGO_URL);
+
 describe('paginate', function() {
 
   before(function(done) {
