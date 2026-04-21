@@ -20,7 +20,6 @@
   "devDependencies": {
     "@drifted/db": "^0.0.4",
     "@drifted/env": "^0.0.10",
-    "@drifted/models": "0.0.6",
     "@drifted/qa": "0.0.31",
     "@faker-js/faker": "^10.0.0",
     "mocha": "^11.7.2"
