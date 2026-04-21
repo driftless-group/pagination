@@ -2,6 +2,8 @@ process.env.NODE_ENV = 'test';
 const path   = require('path');
 const assert = require('assert');
 
+require('@drifted/env/test');
+
 const {
   generatePerson,
   generatePeople,
@@ -11,7 +13,7 @@ const {
 const { Person } = require(path.join(__dirname, 'person'));
 const { Place }  = require(path.join(__dirname, 'place'));
 
-require(path.join(__dirname, 'db'));
+require('@drifted/db')
 
 describe('paginate', function() {
 
