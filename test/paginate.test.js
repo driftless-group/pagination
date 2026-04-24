@@ -15,9 +15,6 @@ const { Place }  = require(path.join(__dirname, 'place'));
 
 require('@drifted/db')
 
-console.log('env', process.env.NODE_ENV);
-console.log('mongo', process.env.MONGO_URL);
-
 describe('paginate', function() {
 
   before(function(done) {
@@ -38,7 +35,6 @@ describe('paginate', function() {
   it('should have something to paginate', function(done) {
     Person.paginate({count: 10, sort: 'username'}).then((response) => {
       
-      //console.log(response);
       assert.equal(response.documents.length, 10);
       assert.equal(response.total.count, 100);
       assert.equal(response.total.pages, 10);
