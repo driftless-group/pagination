@@ -65,9 +65,13 @@ function paginate(schema, options={}) {
         report.current.count = pagination.count;
         report.current.page  = pagination.page;
 
-        report.next          = JSON.parse(JSON.stringify(query));
-        report.next.count    = pagination.count;
-        report.next.page     = pagination.page + 1;
+        // there shouldn't be another page if there 
+        // isn't supposed to be another page.  Right?
+        if (report.total.pages > report.current.page) {
+          report.next          = JSON.parse(JSON.stringify(query));
+          report.next.count    = pagination.count;
+          report.next.page     = pagination.page + 1;
+        }
 
         // adding these words back into the query because this is 
         // supposed to be mimicing the same api that is used on the web.
