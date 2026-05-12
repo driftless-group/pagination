@@ -23,7 +23,9 @@ function paginate(schema, options={}) {
         } 
         return pager;
       }, pagination);
+      
       pagination.page = parseInt(pagination.page);
+      pagination.count = parseInt(pagination.count);
 
       queryOptions = keywords.reduce(function(opts, keyword) {
         if (query[keyword] != undefined) {
