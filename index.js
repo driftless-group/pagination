@@ -51,6 +51,9 @@ function paginate(schema, options={}) {
         return queryBuilder;
       }, builder)
 
+      if (opts.lean) {
+        builder = builder.lean();
+      }
 
       builder.then((documents) => {
         var report = {};

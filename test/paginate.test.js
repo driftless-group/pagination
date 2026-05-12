@@ -52,7 +52,7 @@ describe('paginate', function() {
   })
 
   it('page math, should round up', function(done) { // this comment had no other context.
-    Place.paginate({sort: 'name'}).then((response) => {
+    Place.paginate({sort: 'name'}, {lean: true}).then((response) => {
       
       //console.log(response);
       
