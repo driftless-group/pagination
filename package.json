@@ -1,6 +1,6 @@
 {
   "name": "@drifted/pagination",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "mongoose pagination plugin",
   "homepage": "https://github.com/driftless-group/pagination#readme",
   "bugs": {

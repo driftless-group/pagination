@@ -23,6 +23,7 @@ function paginate(schema, options={}) {
         } 
         return pager;
       }, pagination);
+      pagination.page = parseInt(pagination.page);
 
       queryOptions = keywords.reduce(function(opts, keyword) {
         if (query[keyword] != undefined) {
